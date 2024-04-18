@@ -1,13 +1,28 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './app.tsx'
+import { TimerProvider } from './contexts/TimerContext.tsx'
+import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import Timer from './pages/Timer.tsx'
+import Home from './pages/Home.tsx'
+
 import './index.css'
-import { TimerProvider } from './store/TimerContext.tsx'
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Home />
+  },
+  {
+    path: 'timer',
+    element: <Timer />
+
+  }
+]);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <TimerProvider>
-      <App />
+      <RouterProvider router={router} />
     </TimerProvider>
   </React.StrictMode>,
 )
