@@ -1,6 +1,6 @@
 import { useLocation } from "react-router-dom";
-import TimerHeaderContent from "./Headers/TimerHeaderContent";
-import HomeHeaderContent from "./Headers/HomeHeaderContent";
+import TimerHeaderContent from "./TimerHeaderContent";
+import HomeHeaderContent from "./HomeHeaderContent";
 
 export default function Header() {
   const { pathname } = useLocation()
