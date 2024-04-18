@@ -1,5 +1,5 @@
 import { useContext } from "react"
-import { TimerContext } from "../store/TimerContext"
+import { TimerContext } from "../contexts/TimerContext"
 
 export default function Counter() {
     const {minutes, seconds} = useContext(TimerContext)

@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { TimerContext } from '../store/TimerContext';
+import { TimerContext } from '../contexts/TimerContext';
 
 export default function ProgressBar() {
     const { progressWidth } = useContext(TimerContext);
