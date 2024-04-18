@@ -1,16 +1,7 @@
-export type BlindsDTO = {
-    big: number;
-    small: number;
-    time: number;
-};
+import { StructureProps } from "../types/structure";
 
-export type StructureDTO<T extends string> = {
-    title: string;
-    blinds: BlindsDTO[];
-};
-
-export const structures: Record<string, StructureDTO<string>> = {
-    big50: {
+export const structures: Array<StructureProps> = [
+    {
         title: "Royal BIG 50",
         blinds: [
             {
@@ -31,12 +22,12 @@ export const structures: Record<string, StructureDTO<string>> = {
             {
                 big: 800,
                 small: 400,
-                time: 15
+                time: 1
             },
         ]
     },
-    big100: {
-        title: "Royal BIG 50",
+    {
+        title: "Royal BIG 100",
         blinds: [
             {
                 big: 100,
@@ -60,8 +51,8 @@ export const structures: Record<string, StructureDTO<string>> = {
             },
         ]
     },
-    ko: {
-        title: "Royal BIG 50",
+    {
+        title: "Royal KO",
         blinds: [
             {
                 big: 100,
@@ -84,30 +75,5 @@ export const structures: Record<string, StructureDTO<string>> = {
                 time: 15
             },
         ]
-    },
-    last: {
-        title: "Royal BIG 50",
-        blinds: [
-            {
-                big: 100,
-                small: 50,
-                time: 15
-            },
-            {
-                big: 100,
-                small: 50,
-                time: 15
-            },
-            {
-                big: 100,
-                small: 50,
-                time: 15
-            },
-            {
-                big: 100,
-                small: 50,
-                time: 15
-            },
-        ]
-    },
-};
+    }
+]
