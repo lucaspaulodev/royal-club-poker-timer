@@ -1,6 +1,6 @@
 import { Pause, Play } from "lucide-react"
 import { useContext } from "react"
-import { TimerContext } from "../store/TimerContext"
+import { TimerContext } from "../contexts/TimerContext"
 import { structures } from "../db/db"
 
 export default function Infos() {
@@ -14,7 +14,7 @@ export default function Infos() {
         <div className="text-2xl font-bold flex flex-col justify-center items-center gap-4">
           <div>BLINDS</div>
           <div className="text-7xl">{`${currentBlinds.small}/${currentBlinds.big} (${currentBlinds.big})`}</div>
-          <div>{`NEXT ${nextBlinds.small}/${nextBlinds.big} (${nextBlinds.big})`}</div>
+          {!!nextBlinds && <div>{`NEXT ${nextBlinds.small}/${nextBlinds.big} (${nextBlinds.big})`}</div>}
         </div>
 
         <button onClick={() => togglePlaying()}>
@@ -24,7 +24,7 @@ export default function Infos() {
         <div className="text-2xl font-bold flex flex-col justify-center items-center gap-4">
           <div>ANTE</div>
           <div className="text-7xl">20</div>
-          <div>NEXT 30</div>
+          {!!nextBlinds && <div>NEXT 30</div>}
         </div>
       </section>
     )
