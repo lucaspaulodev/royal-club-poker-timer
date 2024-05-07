@@ -1,6 +1,6 @@
 import { BlindsProps } from "./blinds";
 
-export type StructureProps = {
+export type TournamentProps = {
     title: string;
     blinds: BlindsProps[];
 };

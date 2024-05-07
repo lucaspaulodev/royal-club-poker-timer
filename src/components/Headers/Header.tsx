@@ -3,6 +3,7 @@ import TimerHeaderContent from "./TimerHeaderContent";
 import HomeHeaderContent from "./HomeHeaderContent";
 
 export default function Header() {
+
   const { pathname } = useLocation()
 
   const getHeader = () => {

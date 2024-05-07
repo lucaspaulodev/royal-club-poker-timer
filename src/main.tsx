@@ -4,18 +4,19 @@ import { TimerProvider } from './contexts/TimerContext.tsx'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import Timer from './pages/Timer.tsx'
 import Home from './pages/Home.tsx'
-
 import './index.css'
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Home />
+    element: <Home />,
+    children: [
+      {}
+    ]
   },
   {
     path: 'timer',
     element: <Timer />
-
   }
 ]);
 
