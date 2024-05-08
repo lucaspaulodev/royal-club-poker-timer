@@ -57,14 +57,14 @@ export default function Home() {
                                 </td>
                                 <td className=" px-4 py-2">
                                     <div className="flex justify-center">
-                                        <input className="bg-transparent text-center" type="number" value={level.small > 0 ? level.small : ''} onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                                        <input className="bg-transparent text-center w-full" type="number" value={level.small > 0 ? level.small : ''} onChange={(e: ChangeEvent<HTMLInputElement>) => {
                                             handleBlindChange(index, 'small', ensureNonNegativeValue(e.target.value));
                                         }} />
                                     </div>
                                 </td>
                                 <td className=" px-4 py-2">
                                     <div className="flex justify-center">
-                                        <input className="bg-transparent text-center" type="number" value={level.big > 0 ? level.big : ''} onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                                        <input className="bg-transparent text-center w-full w-full" type="number" value={level.big > 0 ? level.big : ''} onChange={(e: ChangeEvent<HTMLInputElement>) => {
                                             handleBlindChange(index, 'big', ensureNonNegativeValue(e.target.value));
                                         }} />
                                     </div>
@@ -76,7 +76,7 @@ export default function Home() {
                                 </td>
                                 <td className=" px-4 py-2">
                                     <div className="flex justify-center">
-                                        <input className="bg-transparent text-center" type="number" value={level.time > 0 ? level.time : ''} onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                                        <input className="bg-transparent text-center w-full" type="number" value={level.time > 0 ? level.time : ''} onChange={(e: ChangeEvent<HTMLInputElement>) => {
                                             handleBlindChange(index, 'time', ensureNonNegativeValue(e.target.value));
                                         }} />
                                     </div>
