@@ -1,4 +1,4 @@
-import { FC, createContext, useEffect, useState } from "react";
+import { FC, createContext, useState } from "react";
 import useTimer from "../hooks/useTimer";
 import { TimerProps, TimerProviderProps } from "../types/timer";
 import { tournaments } from "../db/tournamentsData";
