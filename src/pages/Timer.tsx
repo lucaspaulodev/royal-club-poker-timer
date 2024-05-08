@@ -6,10 +6,10 @@ import ProgressBar from "../components/ProgressBar";
 export default function Timer() {
     return (
         <div className="space-y-6 bg-gray-900">
-            <Header/>
-            <Counter/>
-            <ProgressBar/>
-            <Infos/>
+            <Header />
+            <Counter />
+            <ProgressBar />
+            <Infos />
         </div>
     )
 }

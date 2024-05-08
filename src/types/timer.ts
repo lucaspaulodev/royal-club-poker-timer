@@ -8,8 +8,9 @@ export type TimerProps = {
     seconds: number;
     progressWidth: string;
     level: number;
-    currentTournament: TournamentProps
-    setCurrentTournament: Dispatch<React.SetStateAction<TournamentProps>>
+    setCurrentTournament: Dispatch<React.SetStateAction<TournamentProps>>,
+    broadcastedTournament: TournamentProps;
+    setBroadcastedTournament: (newState: any) => void;
 }
 
 export type TimerProviderProps = {

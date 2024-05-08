@@ -3,10 +3,10 @@ import { useContext } from "react"
 import { TimerContext } from "../contexts/TimerContext"
 
 export default function Infos() {
-  const { isPlaying, togglePlaying, level, currentTournament } = useContext(TimerContext)
+  const { isPlaying, togglePlaying, level, broadcastedTournament } = useContext(TimerContext)
 
-  const currentBlinds = currentTournament.blinds[level]
-  const nextBlinds = currentTournament.blinds[level + 1]
+  const currentBlinds = broadcastedTournament.blinds[level]
+  const nextBlinds = broadcastedTournament.blinds[level + 1]
 
   return (
     <section className="mx-auto flex max-w-[90rem] justify-around items-center">

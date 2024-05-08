@@ -6,21 +6,28 @@ import { BlindsProps } from "../types/blinds";
 import { ensureNonNegativeValue } from "../lib/ensureNonNegativeValue";
 
 export default function Home() {
-    const { currentTournament, setCurrentTournament } = useContext(TimerContext);
+    const { setCurrentTournament, broadcastedTournament, setBroadcastedTournament } = useContext(TimerContext);
 
     const handleBlindChange = (index: number, fieldName: keyof BlindsProps, newValue: number) => {
         setCurrentTournament((prevTournament: TournamentProps) => {
-            const updatedBlinds = [...prevTournament.blinds];
+            const updatedBlinds = [...prevTournament?.blinds];
             updatedBlinds[index] = { ...updatedBlinds[index], [fieldName]: newValue };
-            return { ...prevTournament, blinds: updatedBlinds };
+            const updatedTournament = { ...prevTournament, blinds: updatedBlinds };
+
+            setBroadcastedTournament(updatedTournament)
+
+            return updatedTournament;
         });
     };
 
     const addNewLevel = () => {
         setCurrentTournament((prevTournament: TournamentProps) => {
             const lastLevel = prevTournament.blinds[prevTournament.blinds.length - 1];
-            const newLevel: BlindsProps = { ...lastLevel }; // Copy values from the last level
+            const newLevel: BlindsProps = { ...lastLevel }
             const updatedBlinds = [...prevTournament.blinds, newLevel];
+
+            setBroadcastedTournament({ ...prevTournament, blinds: updatedBlinds })
+
             return { ...prevTournament, blinds: updatedBlinds };
         });
     };
@@ -29,6 +36,7 @@ export default function Home() {
         setCurrentTournament((prevTournament: TournamentProps) => {
             const breakLevel: BlindsProps = { small: 0, big: 0, time: 15 };
             const updatedBlinds = [...prevTournament.blinds, breakLevel];
+            setBroadcastedTournament({ ...prevTournament, blinds: updatedBlinds })
             return { ...prevTournament, blinds: updatedBlinds };
         });
     };
@@ -47,12 +55,12 @@ export default function Home() {
                     </tr>
                 </thead>
                 <tbody>
-                    {currentTournament?.blinds.map((level, index) => {
+                    {broadcastedTournament?.blinds.map((level, index) => {
                         return (
                             <tr key={index}>
                                 <td className=" px-4 py-2">
                                     <div className="flex justify-center">
-                                        {level.small === 0 && level.big === 0 ? 'BREAK': index + 1}
+                                        {level.small === 0 && level.big === 0 ? 'BREAK' : index + 1}
                                     </div>
                                 </td>
                                 <td className=" px-4 py-2">
@@ -64,7 +72,7 @@ export default function Home() {
                                 </td>
                                 <td className=" px-4 py-2">
                                     <div className="flex justify-center">
-                                        <input className="bg-transparent text-center w-full w-full" type="number" value={level.big > 0 ? level.big : ''} onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                                        <input className="bg-transparent text-center w-full" type="number" value={level.big > 0 ? level.big : ''} onChange={(e: ChangeEvent<HTMLInputElement>) => {
                                             handleBlindChange(index, 'big', ensureNonNegativeValue(e.target.value));
                                         }} />
                                     </div>

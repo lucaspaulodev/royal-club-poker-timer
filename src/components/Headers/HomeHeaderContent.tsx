@@ -4,8 +4,8 @@ import { tournaments } from "../../db/tournamentsData";
 const HomeHeaderContent = () => {
   const renderTournamentLinks = () => {
     return tournaments.map((tournament) => (
-      <NavLink key={tournament.title} to={"/timer"}>
-        <h1>PLAY TOURNAMENT</h1>
+      <NavLink key={tournament.title} to={"/timer"} target="_blank">
+        <h1>START TOURNAMENT</h1>
       </NavLink>
     ));
   };

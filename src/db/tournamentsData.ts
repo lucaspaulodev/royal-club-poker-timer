@@ -7,22 +7,22 @@ export const tournaments: Array<TournamentProps> = [
             {
                 big: 100,
                 small: 50,
-                time: 1
+                time: 15
             },
             {
                 big: 200,
                 small: 100,
-                time: 1
+                time: 15
             },
             {
                 big: 600,
                 small: 300,
-                time: 1
+                time: 15
             },
             {
                 big: 800,
                 small: 400,
-                time: 1
+                time: 15
             },
         ]
     },
