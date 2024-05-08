@@ -1,67 +1,56 @@
 import { useEffect, useState } from "react";
-import { tournaments } from "../db/tournamentsData";
+import { TournamentProps } from "../types/structure";
 
 const useTimer = (
   level: number,
-  setLevel: React.Dispatch<React.SetStateAction<number>>
+  setLevel: React.Dispatch<React.SetStateAction<number>>,
+  currentTournament: TournamentProps
 ) => {
-  const [minutes, setMinutes] = useState(tournaments[0]?.blinds[0]?.time || 0);
+  const [minutes, setMinutes] = useState(currentTournament?.blinds[level]?.time || 0);
   const [seconds, setSeconds] = useState(0);
   const [progressWidth, setProgressWidth] = useState('0%');
   const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
-    let intervalId: number | undefined;
+    let intervalId;
 
-    const currentBlind = tournaments[0]?.blinds[level];
+    const currentBlind = currentTournament?.blinds[level];
 
-    if (!isPlaying) {
+    if (!isPlaying || !currentBlind || level >= currentTournament.blinds.length) {
       clearInterval(intervalId);
-      return;
-    }
-
-    if (!currentBlind || level >= tournaments[0]?.blinds.length) {
-      setIsPlaying(false);
-      clearInterval(intervalId);
-      return;
-    }
-
-    if (minutes === 0 && seconds === 0) {
-      if (tournaments[0]?.blinds[level + 1]) {
-        setLevel((prev) => prev + 1);
-        setProgressWidth('0%');
-        setMinutes(tournaments[0].blinds[level + 1].time || 0);
-        setSeconds(0);
-      } else {
-        setIsPlaying(false);
-        clearInterval(intervalId);
-      }
       return;
     }
 
     intervalId = setInterval(() => {
-      setSeconds((prevSeconds) => {
-        if (prevSeconds === 0) {
-          setMinutes((prevMinutes) => {
-            if (prevMinutes === 0 && tournaments[0]?.blinds[level + 1]) {
-              return 0;
+      setSeconds(prevSeconds => {
+        const newSeconds = prevSeconds === 0 ? 59 : prevSeconds - 1;
+        if (newSeconds === 59 && prevSeconds === 0) {
+          setMinutes(prevMinutes => {
+            if (prevMinutes === 0 && currentTournament?.blinds[level + 1]) {
+              setLevel(prevLevel => prevLevel + 1);
+              return currentTournament.blinds[level + 1].time || 0;
             }
             return prevMinutes === 0 ? prevMinutes : prevMinutes - 1;
           });
-          return 59;
         }
-        return prevSeconds - 1;
+        return newSeconds;
       });
 
       const totalTimeInSeconds = currentBlind.time * 60;
-      const progress = ((totalTimeInSeconds - ((minutes * 60) + seconds)) / totalTimeInSeconds) * 100;
+      const elapsedSeconds = (currentBlind.time * 60) - ((minutes * 60) + seconds);
+      const progress = (elapsedSeconds / totalTimeInSeconds) * 100;
       setProgressWidth(`${progress}%`);
     }, 1000);
 
     return () => clearInterval(intervalId);
-  }, [isPlaying, minutes, seconds, level, 0, setLevel]);
+  }, [isPlaying, level, setLevel, currentTournament, minutes, seconds]);
 
-  const togglePlaying = () => setIsPlaying((prev) => !prev);
+  useEffect(() => {
+    setMinutes(currentTournament.blinds[level]?.time || 0);
+    setSeconds(0);
+  }, [currentTournament.blinds[level]?.time, level]);
+
+  const togglePlaying = () => setIsPlaying(prev => !prev);
 
   return { minutes, seconds, progressWidth, isPlaying, togglePlaying };
 };

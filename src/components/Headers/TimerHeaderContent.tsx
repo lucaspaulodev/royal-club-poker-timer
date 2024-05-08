@@ -1,21 +1,18 @@
-import { useContext } from "react"
-import { TimerContext } from "../../contexts/TimerContext"
-import { Settings } from "lucide-react"
+import { useContext } from "react";
+import { TimerContext } from "../../contexts/TimerContext";
 
 const TimerHeaderContent = () => {
-    const { level } = useContext(TimerContext)
+    const { level } = useContext(TimerContext);
+    const LEVEL_PREFIX = "LEVEL";
+
     return (
         <>
             <h1>Royal Club Timer</h1>
-            <div>
-                {`LEVEL ${level + 1}`}
-            </div>
-            <button className="flex gap-2" >
-                Settings <Settings size={30} />
-            </button>
+            <section>
+                <p>{`${LEVEL_PREFIX} ${level + 1}`}</p>
+            </section>
         </>
+    );
+};
 
-    )
-}
-
-export default TimerHeaderContent
+export default TimerHeaderContent;

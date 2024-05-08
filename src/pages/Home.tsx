@@ -1,7 +1,38 @@
+import { useContext, ChangeEvent } from "react";
 import Header from "../components/Headers/Header";
-import { tournaments } from "../db/tournamentsData";
+import { TimerContext } from "../contexts/TimerContext";
+import { TournamentProps } from "../types/structure";
+import { BlindsProps } from "../types/blinds";
+import { ensureNonNegativeValue } from "../lib/ensureNonNegativeValue";
 
 export default function Home() {
+    const { currentTournament, setCurrentTournament } = useContext(TimerContext);
+
+    const handleBlindChange = (index: number, fieldName: keyof BlindsProps, newValue: number) => {
+        setCurrentTournament((prevTournament: TournamentProps) => {
+            const updatedBlinds = [...prevTournament.blinds];
+            updatedBlinds[index] = { ...updatedBlinds[index], [fieldName]: newValue };
+            return { ...prevTournament, blinds: updatedBlinds };
+        });
+    };
+
+    const addNewLevel = () => {
+        setCurrentTournament((prevTournament: TournamentProps) => {
+            const lastLevel = prevTournament.blinds[prevTournament.blinds.length - 1];
+            const newLevel: BlindsProps = { ...lastLevel }; // Copy values from the last level
+            const updatedBlinds = [...prevTournament.blinds, newLevel];
+            return { ...prevTournament, blinds: updatedBlinds };
+        });
+    };
+
+    const addBreakLevel = () => {
+        setCurrentTournament((prevTournament: TournamentProps) => {
+            const breakLevel: BlindsProps = { small: 0, big: 0, time: 15 };
+            const updatedBlinds = [...prevTournament.blinds, breakLevel];
+            return { ...prevTournament, blinds: updatedBlinds };
+        });
+    };
+
     return (
         <div className="space-y-6 bg-gray-900">
             <Header />
@@ -16,32 +47,38 @@ export default function Home() {
                     </tr>
                 </thead>
                 <tbody>
-                    {tournaments[0]?.blinds.map((level, index) => {
+                    {currentTournament?.blinds.map((level, index) => {
                         return (
                             <tr key={index}>
-                                <td className="border px-4 py-2">
+                                <td className=" px-4 py-2">
                                     <div className="flex justify-center">
-                                        {index + 1}
+                                        {level.small === 0 && level.big === 0 ? 'BREAK': index + 1}
                                     </div>
                                 </td>
-                                <td className="border px-4 py-2">
+                                <td className=" px-4 py-2">
                                     <div className="flex justify-center">
-                                        {level.small}
+                                        <input className="bg-transparent text-center" type="number" value={level.small > 0 ? level.small : ''} onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                                            handleBlindChange(index, 'small', ensureNonNegativeValue(e.target.value));
+                                        }} />
                                     </div>
                                 </td>
-                                <td className="border px-4 py-2">
+                                <td className=" px-4 py-2">
+                                    <div className="flex justify-center">
+                                        <input className="bg-transparent text-center" type="number" value={level.big > 0 ? level.big : ''} onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                                            handleBlindChange(index, 'big', ensureNonNegativeValue(e.target.value));
+                                        }} />
+                                    </div>
+                                </td>
+                                <td className=" px-4 py-2">
                                     <div className="flex justify-center">
                                         {level.big}
                                     </div>
                                 </td>
-                                <td className="border px-4 py-2">
+                                <td className=" px-4 py-2">
                                     <div className="flex justify-center">
-                                        {level.big}
-                                    </div>
-                                </td>
-                                <td className="border px-4 py-2">
-                                    <div className="flex justify-center">
-                                        {`${level.time} min`}
+                                        <input className="bg-transparent text-center" type="number" value={level.time > 0 ? level.time : ''} onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                                            handleBlindChange(index, 'time', ensureNonNegativeValue(e.target.value));
+                                        }} />
                                     </div>
                                 </td>
                             </tr>
@@ -50,6 +87,10 @@ export default function Home() {
                     })}
                 </tbody>
             </table>
+            <div className="w-full flex justify-center gap-8">
+                <button onClick={addNewLevel}>Add New Level</button>
+                <button onClick={addBreakLevel}>Add Break</button>
+            </div>
         </div>
     )
 }

@@ -1,4 +1,5 @@
-import { ReactNode } from "react";
+import { Dispatch, ReactNode } from "react";
+import { TournamentProps } from "./structure";
 
 export type TimerProps = {
     isPlaying: boolean;
@@ -7,6 +8,8 @@ export type TimerProps = {
     seconds: number;
     progressWidth: string;
     level: number;
+    currentTournament: TournamentProps
+    setCurrentTournament: Dispatch<React.SetStateAction<TournamentProps>>
 }
 
 export type TimerProviderProps = {

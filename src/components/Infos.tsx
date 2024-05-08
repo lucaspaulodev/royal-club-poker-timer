@@ -1,13 +1,12 @@
 import { Pause, Play } from "lucide-react"
 import { useContext } from "react"
 import { TimerContext } from "../contexts/TimerContext"
-import { tournaments } from "../db/tournamentsData"
 
 export default function Infos() {
-  const { isPlaying, togglePlaying, level } = useContext(TimerContext)
+  const { isPlaying, togglePlaying, level, currentTournament } = useContext(TimerContext)
 
-  const currentBlinds = tournaments[0].blinds[level]
-  const nextBlinds = tournaments[0].blinds[level + 1]
+  const currentBlinds = currentTournament.blinds[level]
+  const nextBlinds = currentTournament.blinds[level + 1]
 
   return (
     <section className="mx-auto flex max-w-[90rem] justify-between items-center">
