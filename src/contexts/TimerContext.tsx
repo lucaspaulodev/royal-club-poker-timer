@@ -7,10 +7,8 @@ import useBroadcastState from "../hooks/useBroadcastState";
 export const TimerContext = createContext({} as TimerProps);
 
 export const TimerProvider: FC<TimerProviderProps> = ({ children }) => {
-    const [currentTournament, setCurrentTournament] = useState(tournaments[0]);
-    const [broadcastedTournament, setBroadcastedTournament] = useBroadcastState(currentTournament, 'shared-tournament');
-    const [level, setLevel] = useState(0);
-    const { minutes, seconds, progressWidth, isPlaying, togglePlaying } = useTimer(level, setLevel, broadcastedTournament);
+    const [broadcastedTournament, setBroadcastedTournament, setCurrentTournament] = useBroadcastState(tournaments[0], 'shared-tournament');
+    const { minutes, seconds, progressWidth, isPlaying, togglePlaying, level } = useTimer(broadcastedTournament);
 
     const contextValue: TimerProps = {
         isPlaying,

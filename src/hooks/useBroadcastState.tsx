@@ -6,8 +6,8 @@ type StateType = TournamentProps | BlindsProps[];
 
 const useBroadcastState = <T extends StateType>(
     initialState: T,
-    channelName: string
-): [T, (newState: T) => void] => {
+    channelName: string,
+): [T, (newState: T) => void, React.Dispatch<React.SetStateAction<T>>] => {
     const [state, setState] = useState<T>(initialState);
     useEffect(() => {
         const broadcastChannel = new BroadcastChannel(channelName);
@@ -30,7 +30,7 @@ const useBroadcastState = <T extends StateType>(
         broadcastChannel.close();
     };
 
-    return [state, broadcastState];
+    return [state, broadcastState, setState];
 };
 
 export default useBroadcastState;

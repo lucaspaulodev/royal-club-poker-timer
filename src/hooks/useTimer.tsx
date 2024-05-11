@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 import { TournamentProps } from "../types/structure";
 
 const useTimer = (
-  level: number,
-  setLevel: React.Dispatch<React.SetStateAction<number>>,
   currentTournament: TournamentProps
 ) => {
-  const [minutes, setMinutes] = useState(currentTournament?.blinds[level]?.time || 0);
-  const [seconds, setSeconds] = useState(0);
+  const [level, setLevel] = useState(0);
+  const [time, setTime] = useState({
+    minutes: currentTournament?.blinds[level]?.time || 0,
+    seconds: 0
+  })
   const [progressWidth, setProgressWidth] = useState('0%');
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -22,37 +23,41 @@ const useTimer = (
     }
 
     intervalId = setInterval(() => {
-      setSeconds(prevSeconds => {
-        const newSeconds = prevSeconds === 0 ? 59 : prevSeconds - 1;
-        if (newSeconds === 59 && prevSeconds === 0) {
-          setMinutes(prevMinutes => {
-            if (prevMinutes === 0 && currentTournament?.blinds[level + 1]) {
-              setLevel(prevLevel => prevLevel + 1);
-              return currentTournament.blinds[level + 1].time || 0;
-            }
-            return prevMinutes === 0 ? prevMinutes : prevMinutes - 1;
-          });
+      setTime(prevTime => {
+        const newSeconds = prevTime.seconds === 0 ? 59 : prevTime.seconds - 1;
+        const newMinutes = prevTime.seconds === 0 ? prevTime.minutes - 1 : prevTime.minutes;
+        if (newMinutes === 0 && newSeconds === 0 && currentTournament?.blinds[level + 1]) {
+          setLevel(prevLevel => prevLevel + 1);
+          return {
+            minutes: currentTournament.blinds[level + 1]?.time || 0,
+            seconds: 0
+          };
         }
-        return newSeconds;
+        return {
+          minutes: newMinutes,
+          seconds: newSeconds
+        };
       });
 
       const totalTimeInSeconds = currentBlind.time * 60;
-      const elapsedSeconds = (currentBlind.time * 60) - ((minutes * 60) + seconds);
+      const elapsedSeconds = (currentBlind.time * 60) - ((time.minutes * 60) + time.seconds);
       const progress = (elapsedSeconds / totalTimeInSeconds) * 100;
       setProgressWidth(`${progress}%`);
     }, 1000);
 
     return () => clearInterval(intervalId);
-  }, [isPlaying, level, setLevel, currentTournament, minutes, seconds]);
+  }, [isPlaying, level, setLevel, currentTournament, time]);
 
   useEffect(() => {
-    setMinutes(currentTournament.blinds[level]?.time || 0);
-    setSeconds(0);
+    setTime({
+      minutes: currentTournament.blinds[level]?.time || 0,
+      seconds: 0
+    });
   }, [currentTournament.blinds[level]?.time, level]);
 
   const togglePlaying = () => setIsPlaying(prev => !prev);
 
-  return { minutes, seconds, progressWidth, isPlaying, togglePlaying };
+  return { minutes: time.minutes, seconds: time.seconds, progressWidth, isPlaying, togglePlaying, level };
 };
 
 export default useTimer;
