@@ -1,11 +1,11 @@
-import Counter from "../components/Counter";
+import Counter from "../components/Timer/Counter";
 import Header from "../components/Headers/Header";
-import Infos from "../components/Infos";
-import ProgressBar from "../components/ProgressBar";
+import Infos from "../components/Timer/Infos";
+import ProgressBar from "../components/Timer/ProgressBar";
 
-export default function Timer() {
+const Timer = () => {
     return (
-        <div className="space-y-6 bg-gray-900">
+        <div className="bg-gray-900">
             <Header />
             <Counter />
             <ProgressBar />
@@ -13,3 +13,5 @@ export default function Timer() {
         </div>
     )
 }
+
+export default Timer
