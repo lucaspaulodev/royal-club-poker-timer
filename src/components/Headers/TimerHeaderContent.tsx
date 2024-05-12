@@ -8,17 +8,16 @@ const TimerHeaderContent = () => {
     const currentBlind = broadcastedTournament.blinds[level];
 
     return (
-        <>
+        <nav className="w-full flex gap-11 items-center justify-end">
             <h1>Royal Club Timer</h1>
             <section>
                 {currentBlind.break ? (
-                    <p>{`BREAK`}</p> 
+                    <p>{`BREAK`}</p>
                 ) : (
                     <p>{`${LEVEL_PREFIX} ${level + 1}`}</p>
                 )}
-                
             </section>
-        </>
+        </nav>
     );
 };
 
