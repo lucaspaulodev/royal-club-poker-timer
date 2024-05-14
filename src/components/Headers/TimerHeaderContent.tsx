@@ -4,11 +4,10 @@ import { TimerContext } from "../../contexts/TimerContext";
 const TimerHeaderContent = () => {
     const { broadcastedLevel, broadcastedTournament } = useContext(TimerContext);
     const LEVEL_PREFIX = "LEVEL";
-    console.log(broadcastedLevel)
     const currentBlind = broadcastedTournament.blinds[broadcastedLevel];
 
     return (
-        <nav className="w-full flex gap-11 items-center justify-end">
+        <nav className="w-full flex gap-11 items-center justify-end col-start-2 col-end-2">
             <h1>Royal Club Timer</h1>
             <section>
                 {currentBlind.break ? (

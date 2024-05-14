@@ -30,7 +30,7 @@ const HomeHeaderContent = () => {
   };
 
   return (
-    <nav className="w-full flex justify-between">
+    <nav className="w-full flex justify-between col-start-2 col-end-2">
       <div>
         <img src={logo} className="w-12" alt="Royal Club logo." title="Royal Club's logo."/>
       </div>
