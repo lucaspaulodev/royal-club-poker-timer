@@ -9,7 +9,7 @@ import { BlindsProps } from "../../types/blinds";
 import logo from "../../assets/ROYAL-CLUB.png"
 
 const HomeHeaderContent = () => {
-  const { broadcastedTime, broadcastedIsPlaying, togglePlaying, setBroadcastedTournament } = useContext(TimerContext)
+  const { broadcastedTime, broadcastedIsPlaying, broadcastedLevel, togglePlaying, setBroadcastedTournament } = useContext(TimerContext)
 
   const addLevel = useCallback((breakLevel = false) => {
     setBroadcastedTournament((prevTournament: TournamentProps) => {
@@ -34,12 +34,13 @@ const HomeHeaderContent = () => {
       <div>
         <img src={logo} className="w-12" alt="Royal Club logo." title="Royal Club's logo."/>
       </div>
-      <div className="flex gap-11 items-center">
+      <div className="flex gap-4 items-center sm:gap-8">
         {renderTimerPage()}
         <button onClick={() => togglePlaying()} title={broadcastedIsPlaying ? "Pause tournament." : "Play tournament."}>
           {broadcastedIsPlaying ? <Pause /> : <Play />}
         </button>
-        <h1>{`${formatTime(broadcastedTime.minutes)}:${formatTime(broadcastedTime.seconds)}`}</h1>
+        <p className="text-sm sm:text-base">{`${formatTime(broadcastedTime.minutes)}:${formatTime(broadcastedTime.seconds)}`}</p>
+        <p className="text-sm sm:text-base">{`Level ${broadcastedLevel + 1}`}</p>
         <button onClick={() => addLevel(false)} title="Add a new level.">
           <CirclePlus />
         </button>

@@ -14,7 +14,7 @@ const LevelInput = ({ value, onChange }: LevelInputProps) => {
     return (
         <div className="flex justify-center">
             <input
-                className="bg-transparent text-center w-full"
+                className="bg-transparent text-center w-full text-xs sm:text-base"
                 type="number"
                 value={value || ''}
                 onChange={handleChange}

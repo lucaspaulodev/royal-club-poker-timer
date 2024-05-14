@@ -28,8 +28,8 @@ const LevelRow = ({
 
     return (
         <tr>
-            <td className="px-4 py-2">
-                <div className="flex justify-center">{level.break ? 'BREAK' : correctedIndex}</div>
+            <td className="px-4 py-2 ">
+                <div className="flex justify-center text-xs sm:text-base">{level.break ? 'BREAK' : correctedIndex}</div>
             </td>
             <td className="px-4 py-2">
                 <LevelInput value={level.small} onChange={(value) => handleChange('small', value)} />
@@ -38,7 +38,7 @@ const LevelRow = ({
                 <LevelInput value={level.big} onChange={(value) => handleChange('big', value)} />
             </td>
             <td className="px-4 py-2">
-                <div className="flex justify-center">{level.big}</div>
+                <div className="flex justify-center text-xs sm:text-base">{level.big}</div>
             </td>
             <td className="px-4 py-2">
                 <LevelInput value={level.time} onChange={(value) => handleChange('time', value)} />

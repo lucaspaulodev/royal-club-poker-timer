@@ -37,11 +37,11 @@ const Home = () => {
                 <table className="table-fixed w-full">
                     <thead>
                         <tr>
-                            <th className="px-4 py-2 uppercase">Level</th>
-                            <th className="px-4 py-2 uppercase">Small Blind</th>
-                            <th className="px-4 py-2 uppercase">Big Blind</th>
-                            <th className="px-4 py-2 uppercase">Ante</th>
-                            <th className="px-4 py-2 uppercase">Time</th>
+                            <th className="px-4 py-2 uppercase text-xs sm:text-base">Level</th>
+                            <th className="px-4 py-2 uppercase text-xs sm:text-base">Small</th>
+                            <th className="px-4 py-2 uppercase text-xs sm:text-base">Big</th>
+                            <th className="px-4 py-2 uppercase text-xs sm:text-base">Ante</th>
+                            <th className="px-4 py-2 uppercase text-xs sm:text-base">Time</th>
                             <th className="w-16"></th>
                             <th className="w-16"></th>
                         </tr>
