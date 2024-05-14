@@ -10,8 +10,9 @@ export type TimerProps = {
         minutes: number;
         seconds: number;
     },
-    progressWidth: string;
-    level: number;
+    broadcastedProgressWidth: string;
+    broadcastedLevel: number,
+    setBroadcastedLevel: (newState: any) => void;
 }
 
 export type TimerProviderProps = {

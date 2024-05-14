@@ -8,7 +8,7 @@ export const TimerContext = createContext({} as TimerProps);
 
 export const TimerProvider: FC<TimerProviderProps> = ({ children }) => {
     const [broadcastedTournament, setBroadcastedTournament] = useBroadcastState(tournaments[0], 'shared-tournament');
-    const { broadcastedTime, progressWidth, broadcastedIsPlaying, togglePlaying, level } = useTimer(broadcastedTournament);
+    const { broadcastedTime, broadcastedProgressWidth, broadcastedIsPlaying, togglePlaying, broadcastedLevel, setBroadcastedLevel } = useTimer(broadcastedTournament);
 
     const contextValue: TimerProps = {
         broadcastedTime,
@@ -16,8 +16,9 @@ export const TimerProvider: FC<TimerProviderProps> = ({ children }) => {
         togglePlaying,
         broadcastedTournament,
         setBroadcastedTournament,
-        progressWidth,
-        level,
+        broadcastedProgressWidth,
+        broadcastedLevel,
+        setBroadcastedLevel
     };
 
     return (

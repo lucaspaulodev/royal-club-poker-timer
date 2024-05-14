@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import { BlindsProps } from "../../types/blinds";
-import { X } from "lucide-react";
+import { SkipForward, X } from "lucide-react";
 import LevelInput from "./LevelInput";
 
 type LevelRowProps = {
@@ -9,6 +9,7 @@ type LevelRowProps = {
     tournament: BlindsProps[],
     onBlindChange: (index: number, fieldName: keyof BlindsProps, newValue: number) => void,
     onRemoveLevel: (index: number) => void
+    onSkipLevel: (index: number) => void
 }
 
 const LevelRow = ({
@@ -16,7 +17,8 @@ const LevelRow = ({
     index,
     tournament,
     onBlindChange,
-    onRemoveLevel
+    onRemoveLevel,
+    onSkipLevel
 }: LevelRowProps) => {
     const correctedIndex = index - tournament.slice(0, index).filter(blind => blind.break).length + 1;
 
@@ -40,6 +42,13 @@ const LevelRow = ({
             </td>
             <td className="px-4 py-2">
                 <LevelInput value={level.time} onChange={(value) => handleChange('time', value)} />
+            </td>
+            <td className="px-4 py-2">
+                <div className="flex justify-center">
+                    <button onClick={() => onSkipLevel(index)} title={`Skip to level ${index+1}`}>
+                        <SkipForward />
+                    </button>
+                </div>
             </td>
             <td className="px-4 py-2">
                 <div className="flex justify-center">

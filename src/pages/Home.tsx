@@ -6,7 +6,7 @@ import { BlindsProps } from "../types/blinds";
 import LevelRow from "../components/Home/LevelRow";
 
 const Home = () => {
-    const { broadcastedTournament, setBroadcastedTournament } = useContext(TimerContext);
+    const { broadcastedTournament, setBroadcastedTournament, setBroadcastedLevel } = useContext(TimerContext);
 
     const handleBlindChange = useCallback((index: number, fieldName: keyof BlindsProps, newValue: number) => {
         setBroadcastedTournament((prevTournament: TournamentProps) => {
@@ -15,6 +15,10 @@ const Home = () => {
             const updatedTournament = { ...prevTournament, blinds: updatedBlinds };
             return updatedTournament;
         });
+    }, [setBroadcastedTournament]);
+
+    const skipToLevel = useCallback((indexToSkip: number) => {
+        setBroadcastedLevel(indexToSkip);
     }, [setBroadcastedTournament]);
 
     const removeLevel = useCallback((indexToRemove: number) => {
@@ -39,6 +43,7 @@ const Home = () => {
                             <th className="px-4 py-2 uppercase">Ante</th>
                             <th className="px-4 py-2 uppercase">Time</th>
                             <th className="w-16"></th>
+                            <th className="w-16"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -50,6 +55,7 @@ const Home = () => {
                                 tournament={array}
                                 onBlindChange={handleBlindChange}
                                 onRemoveLevel={removeLevel}
+                                onSkipLevel={skipToLevel}
                             />
                         ))}
                     </tbody>
