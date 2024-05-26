@@ -66,6 +66,11 @@ export const timeAtom = atom<Time, [Time], void>(
 );
 
 export const tickTimeAtom = atom(null, (get, set) => {
+  const isPlaying = get(isPlayingAtom);
+  if (!isPlaying) {
+    return;
+  }
+
   const level = get(levelAtom);
   const tournament = get(tournamentAtom);
   const { seconds, minutes } = get(timeAtom);
