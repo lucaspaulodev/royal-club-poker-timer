@@ -1,6 +1,6 @@
-export type BlindsProps = {
-    big: number;
-    small: number;
-    time: number;
-    break: boolean;
+export type Blinds = {
+  big: number;
+  small: number;
+  time: number;
+  break: boolean;
 };

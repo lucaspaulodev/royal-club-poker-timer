@@ -1,6 +1,6 @@
-import { BlindsProps } from "./blinds";
+import { Blinds } from "./blinds";
 
-export type TournamentProps = {
-    title: string;
-    blinds: BlindsProps[];
+export type Tournament = {
+  title: string;
+  blinds: Blinds[];
 };
