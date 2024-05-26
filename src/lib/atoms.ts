@@ -1,13 +1,17 @@
 import { atom } from "jotai";
 import { Tournament } from "../types/structure";
 import { tournaments } from "../db/tournamentsData";
+import atomWithBroadcast from "./atomWithBroadcast";
 
 // State tournament
-export const tournamentAtom = atom<Tournament>(tournaments[0]);
+export const tournamentAtom = atomWithBroadcast<Tournament>(
+  "tournament",
+  tournaments[0]
+);
 
 // State level
 const defaultLevelAtom = atom<number>(0);
-const overwrittenLevelAtom = atom<number | null>(null);
+const overwrittenLevelAtom = atomWithBroadcast<number | null>("level", null);
 export const levelAtom = atom<number, [number], void>(
   (get) => get(overwrittenLevelAtom) || get(defaultLevelAtom),
   (get, set, level: number) => {
@@ -23,7 +27,7 @@ export const levelAtom = atom<number, [number], void>(
 );
 
 // State isPlaying
-export const isPlayingAtom = atom<boolean>(false);
+export const isPlayingAtom = atomWithBroadcast<boolean>("isPlaying", false);
 
 // Derived state maxTime
 export const maxTimeReadOnlyAtom = atom<number>((get) => {
@@ -55,7 +59,7 @@ const defaultTimeAtom = atom<Time>((get) => ({
   minutes: get(maxTimeReadOnlyAtom) || 0,
   seconds: 0,
 }));
-const overwrittenTimeAtom = atom<Time | null>(null);
+const overwrittenTimeAtom = atomWithBroadcast<Time | null>("time", null);
 export const timeAtom = atom<Time, [Time], void>(
   (get) => get(overwrittenTimeAtom) || get(defaultTimeAtom),
   (_get, set, time: Time) => set(overwrittenTimeAtom, time)
