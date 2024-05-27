@@ -1,0 +1,3 @@
+{
+  "extends": "@poker-time/typescript-config/base.json"
+}

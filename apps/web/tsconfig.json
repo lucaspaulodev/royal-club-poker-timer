@@ -1,0 +1,4 @@
+{
+  "extends": "@poker-time/typescript-config/vite.json",
+  "include": ["src"]
+}
