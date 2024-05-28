@@ -1,0 +1,11 @@
+{
+  "name": "@poker-time/utils",
+  "version": "0.0.0",
+  "private": true,
+  "exports": {
+    "./number": "./src/number.ts",
+    "./time": "./src/time.ts"
+  },
+  "scripts": {},
+  "devDependencies": {}
+}
